@@ -13,7 +13,7 @@ public class IfElseStatementTheme {
         }
 
         if(!maleSex) {
-            System.out.println("Извините. Только мужская вечиринка");
+            System.out.println("Извините. Только мужская вечеринка");
         } else {
             System.out.println("Добро пожаловать");
         }
@@ -35,36 +35,27 @@ public class IfElseStatementTheme {
         System.out.println("\n2. Поиск максимального и минимального числа");
         int firstNum = 10;
         int secondNum = 22;
-        int max = 0;
-        int min = 0;
 
-        if(firstNum > secondNum) {
-            max = firstNum;
-            min = secondNum;
-        } else if(secondNum > firstNum) {
-            max = secondNum;
-            min = firstNum;
-        }
-        System.out.println("max: " + max);
-        System.out.println("min: " + min);
+        System.out.println("max: " + (firstNum > secondNum ? firstNum : secondNum));
+        System.out.println("min: " + (firstNum < secondNum ? firstNum : secondNum));
 
         System.out.println("\n3. Работа с числом");
-        int srcNum3 = 0;
+        int srcNum = -12;
 
-        if(srcNum3 == 0) {
-            System.out.println("число srcNum3 -- ноль");
-        } 
-
-        if(srcNum3 % 2 == 0) {
-            System.out.println("число srcNum3 -- четное");
+        if(srcNum == 0) {
+            System.out.println("" + srcNum + " -- ноль");
         } else {
-            System.out.println("число srcNum3 -- нечетное");
-        }
+            if(srcNum % 2 == 0) {
+                System.out.println("" + srcNum + " -- четное");
+            } else {
+                System.out.println("" + srcNum + " -- нечетное");
+            }
 
-        if(srcNum3 < 0) {
-            System.out.println("число srcNum3 -- отрицательноре");
-        } else {
-            System.out.println("число srcNum3 -- положительное");
+            if(srcNum < 0) {
+                System.out.println("" + srcNum + " -- отрицательное");
+            } else {
+                System.out.println("" + srcNum + " -- положительное");
+            }
         }
 
         System.out.println("\n4. Поиск одинаковых цифр в числах");
@@ -74,30 +65,33 @@ public class IfElseStatementTheme {
         int firstDigitNum2 = num2 / 100;
         int secondDigitNum1 = (num1 % 100) / 10;
         int secondDigitNum2 = (num2 % 100) / 10;
-        int thirdDigitNum1 = (num1 % 100) % 10;
-        int thirdDigitNum2 = (num2 % 100) % 10;
+        int thirdDigitNum1 = num1 % 10;
+        int thirdDigitNum2 = num2 % 10;
 
         if(firstDigitNum1 == firstDigitNum2) {
-            System.out.println("first digits: " + firstDigitNum1 + " " +firstDigitNum2);
+            System.out.println("first digits: " + firstDigitNum1 + " " + 
+                firstDigitNum2);
         }
         if(secondDigitNum1 == secondDigitNum2) {
-            System.out.println("second digits: " + secondDigitNum1 + " " +secondDigitNum2);
+            System.out.println("second digits: " + secondDigitNum1 + " " + 
+                secondDigitNum2);
         }
         if(thirdDigitNum1 == thirdDigitNum2) {
-            System.out.println("third digits: " + thirdDigitNum1 + " " +thirdDigitNum2);
+            System.out.println("third digits: " + thirdDigitNum1 + " " + 
+                thirdDigitNum2);
         }
 
         System.out.println("\n5. Определение буквы, числа или символа по их коду");
-        char srcSymbolCode = '\u0057';
+        char unknownChar = '\u0057';
 
-        if(srcSymbolCode >= '\u0030' && srcSymbolCode <= '\u0039') {
-            System.out.println("это цифра: " + srcSymbolCode + " unicode: " + (int) srcSymbolCode);
-        } else if (srcSymbolCode >= '\u0041' && srcSymbolCode <= '\u0059' || srcSymbolCode == '\u005A') {
-            System.out.println("это заглавная буква: " + srcSymbolCode + " unicode: " + (int) srcSymbolCode);
-        } else if (srcSymbolCode >= '\u0061' && srcSymbolCode <'\u0079' || srcSymbolCode == '\u007A') {
-            System.out.println("это строчная буква: " + srcSymbolCode + " unicode: " + (int) srcSymbolCode);
+        if(unknownChar >= '0' && unknownChar <= '9') {
+            System.out.println("это цифра: " + unknownChar + " unicode: " + (int) unknownChar);
+        } else if (unknownChar >= 'A' && unknownChar <= 'Z') {
+            System.out.println("это заглавная буква: " + unknownChar + " unicode: " + (int) unknownChar);
+        } else if (unknownChar >= 'a' && unknownChar <'z') {
+            System.out.println("это строчная буква: " + unknownChar + " unicode: " + (int) unknownChar);
         } else {
-            System.out.println("это символ: " + srcSymbolCode + " unicode: " + (int) srcSymbolCode);
+            System.out.println("это символ: " + unknownChar + " unicode: " + (int) unknownChar);
         }
 
         System.out.println("\n6. Определение суммы вклада и начисленных банком %");
@@ -119,12 +113,8 @@ public class IfElseStatementTheme {
 
         System.out.println("\n7. Определение оценки по предметам");
         int historyPercent = 59;
-        int programmingPercent = 91;
         int historyGrade = 0;
-        int programmingGrade = 0;
-        int averageGrade = 0;
-        int averagePercent = (historyPercent + programmingPercent) / 2;
-
+        
         if(historyPercent <= 60) {
             historyGrade = 2;
         } else if(historyPercent > 91) {
@@ -134,6 +124,9 @@ public class IfElseStatementTheme {
         } else if(historyPercent > 60){
             historyGrade = 3;
         }
+
+        int programmingPercent = 91;
+        int programmingGrade = 0;
 
         if(programmingPercent <= 60) {
             programmingGrade = 2;
@@ -145,32 +138,32 @@ public class IfElseStatementTheme {
             programmingGrade = 3;
         }
 
-        averageGrade = (historyGrade + programmingGrade) / 2;
+        int averagePercent = (historyPercent + programmingPercent) / 2;
+        int averageGrade = (historyGrade + programmingGrade) / 2;
         System.out.println("" + historyGrade + " -- history" );
         System.out.println("" + programmingGrade + " -- programming");
         System.out.println("average grade: " + averageGrade);
         System.out.println("average percent: " + averagePercent);
 
         System.out.println("\n8. Расчет прибыли");
-        int monthRent = 5000;
+        int monthRent = 3000;
         int monthRevenue = 13000;
         int productNetcost = 9000;
         int monthInYear = 12;
-        int yearRevenue = (monthInYear * monthRevenue) - ((monthInYear * monthRent) + (monthInYear * productNetcost));
+        int yearRevenue = monthInYear * (monthRevenue - (monthRent + productNetcost));
 
-        System.out.println("прибыль за год: " + yearRevenue + "р");
+        if(yearRevenue >= 0) {
+            System.out.println("прибыль за год: +" + yearRevenue + "р");
+        } else {
+            System.out.println("прибыль за год: " + yearRevenue + "р");
+        }
 
         System.out.println("\n9. Определение существования треугольника");
         int sideA = 3;
         int sideB = 4;
         int sideC = 5;
         int angleC = 90;
-        float triangleArea = 0.0f;
         boolean isTriangleExist = false;
-        char space = ' ';
-        char verticalBar = '|';
-        char underline = '_';
-        char reverseSlash = '\\';
 
         if(sideA + sideB > sideC) {
             isTriangleExist = true;
@@ -182,18 +175,39 @@ public class IfElseStatementTheme {
 
         if(isTriangleExist) {
             System.out.println("треугольник существует");
-            System.out.println("катет 1: " + sideA);
-            System.out.println("катет 2: " + sideB);
-            System.out.println("гипотенуза: " + sideC);
-            triangleArea = (float) 0.5 * (sideA + sideB);
+            int hypotenuse = 0;
+            int catet1 = 0;
+            int catet2 = 0;
+            if(sideA > sideB && sideA > sideC) {
+                hypotenuse = sideA; 
+                catet1 = sideB;
+                catet2 = sideC;
+            } else if(sideB > sideA && sideB > sideC) {
+                hypotenuse = sideB;
+                catet1 = sideA;
+                catet2 = sideC;
+            } else {
+                hypotenuse = sideC;
+                catet1 = sideA;
+                catet2 = sideB;
+            }
+
+            System.out.println("гипотенуза: " + hypotenuse);
+            System.out.println("катет 1: " + catet1);
+            System.out.println("катет 2: " + catet2);
+            float triangleArea = (float) 0.5 * (catet1 + catet2);
             System.out.println("площадь треугольника: " + triangleArea);
 
+            char space = ' ';
+            char verticalBar = '|';
+            char underline = '_';
+            char reverseSlash = '\\';
             System.out.println("" + verticalBar + reverseSlash);
             System.out.println("" + verticalBar + space + reverseSlash);
             System.out.println("" + verticalBar + space + space + reverseSlash);
             System.out.println("" + verticalBar + underline + underline + underline +reverseSlash);
         } else {
-            System.out.println("треуголник не существует");
+            System.out.println("треугольник не существует");
         }
 
         System.out.println("\n10. Подсчет количества банкнот");
@@ -206,9 +220,9 @@ public class IfElseStatementTheme {
         int banknoteOneAmout = (srcSum % banknoteFifty) % banknoteTen;
         int totalSum = (banknoteFiftyAmount * banknoteFifty) + (banknoteTenAmount * banknoteTen) + (banknoteOneAmout * banknoteOne);
         
-        System.out.println("" + banknoteFifty +": " + banknoteFiftyAmount);
-        System.out.println("" + banknoteTen +": " + banknoteTenAmount);
-        System.out.println("" + banknoteOne +": " + banknoteOneAmout);
+        System.out.println("" + banknoteFifty + ": " + banknoteFiftyAmount);
+        System.out.println("" + banknoteTen + ": " + banknoteTenAmount);
+        System.out.println("" + banknoteOne + ": " + banknoteOneAmout);
         System.out.println("totalSum: " + totalSum);
      }
 }
