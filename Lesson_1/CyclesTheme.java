@@ -46,7 +46,7 @@ public class CyclesTheme {
         while(srcNum != 0) {
             int digit = srcNum % 10;
             System.out.print(digit);
-            sumDigits += (digit);
+            sumDigits += digit;
             srcNum /= 10;
         }
         System.out.format("\nсумма цифр: %d%n", sumDigits);
@@ -60,11 +60,12 @@ public class CyclesTheme {
                 k = 0;
                 System.out.print("\n");
             }
-            if(i == 23 && k < 5) {
-                int diffDigits = 5 - k;
-                for(k = 0; k < diffDigits; k++) {
-                    System.out.format("%,2d ", 0);
-                }
+        }
+
+        if(k < 5) {
+            int diffDigits = 5 - k;
+            for(k = 0; k < diffDigits; k++) {
+                System.out.format("%,2d ", 0);
             }
         }
 
