@@ -21,7 +21,7 @@ public class Person {
     }
 
     void talk() {
-        System.out.println("Меняю профессию");;
+        System.out.println("Меняю профессию");
     }
 
     boolean learnJava() {
