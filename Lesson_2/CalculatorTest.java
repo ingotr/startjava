@@ -7,7 +7,6 @@ public class CalculatorTest {
         String userAnswer = "yes";
         
         do {
-            int result = 0;
             System.out.println("Введите первое число: ");
             int a = scanner.nextInt();
             System.out.println("Введите знак математической операции: ");
@@ -15,7 +14,7 @@ public class CalculatorTest {
             System.out.println("Введите второе число: ");
             int b = scanner.nextInt();
 
-            result = calculator.calculate(a, b, sign);
+            int result = calculator.calculate(a, b, sign);
             System.out.println(a + " " + sign + " " + b + " = " + result);
             
             do {
