@@ -23,15 +23,7 @@ public class JaegerTest {
         jaegerOne.useWeapon();
         System.out.println("");
 
-        Jaeger jaegerTwo = new Jaeger();
-        jaegerTwo.setModelName("Striker Eureka");
-        jaegerTwo.setMark("Mark-5");
-        jaegerTwo.setOrigin("Australia");
-        jaegerTwo.setHeight(76.2f);
-        jaegerTwo.setWeight(1.850f);
-        jaegerTwo.setSpeed(10);
-        jaegerTwo.setStrength(10);
-        jaegerTwo.setArmor(9);
+        Jaeger jaegerTwo = new Jaeger("Striker Eureka", "Mark-5", "Australia", 76.2f, 1.850f, 10, 10, 9);
 
         System.out.println("jaegerTwo modelName = " + jaegerTwo.getModelName());
         System.out.println("jaegerTwo mark = " + jaegerTwo.getMark());
