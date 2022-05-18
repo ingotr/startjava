@@ -22,27 +22,28 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.format("%nИгрок, " + playerOne.getName() + ". Введите число: %n");
-            playerOne.setNumber(scanner.nextInt());
-            if(compareNums(hiddenNumber, playerOne.getNumber())) {
+            inputNumber(scanner, playerOne);
+            if(compareNumber(hiddenNumber, playerOne.getNumber())) {
+                System.out.println("Вы победили! " + playerOne.getName());
                 break;
             }
-            System.out.format("%nИгрок, " + playerTwo.getName() + ". Введите число: %n");
-            playerTwo.setNumber(scanner.nextInt());
-            if(compareNums(hiddenNumber, playerTwo.getNumber())) {
+            inputNumber(scanner, playerTwo);
+            if(compareNumber(hiddenNumber, playerTwo.getNumber())) {
+                System.out.println("Вы победили! " + playerTwo.getName());
                 break;
             }
         } while(true);
     }
 
-    private boolean compareNums(int hiddenNumber, int playerNum) {
+    private void inputNumber(Scanner scanner, Player player) {
+        System.out.format("%nИгрок, " + player.getName() + ". Введите число: %n");
+        player.setNumber(scanner.nextInt());
+    }
+
+
+    private boolean compareNumber(int hiddenNumber, int playerNum) {
         if(playerNum == hiddenNumber) {
             System.out.println("Компьютер загадал: " + hiddenNumber);
-            if(playerNum == playerOne.getNumber()) {
-                System.out.println("Вы победили! " + playerOne.getName());
-            } else {
-                System.out.println("Вы победили! " + playerTwo.getName());
-            }
             return true;
         }
 
