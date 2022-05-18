@@ -13,61 +13,45 @@ public class GuessNumber {
 
     public void play() {
         Random random = new Random();
-        int computerNum = random.nextInt(100) + 1;
+        int hiddenNumber = random.nextInt(100) + 1;
 
-        runGameCycle(computerNum);
+        runGameplay(hiddenNumber);
     }
 
-    private void runGameCycle(int computerNum) {
+    private void runGameplay(int hiddenNumber) {
         Scanner scanner = new Scanner(System.in);
-        int playerNum = 0;
-        boolean isPlayerOne = false;
-        boolean isPlayerWin = false;
 
         do {
-            if(!isPlayerWin) {
-                isPlayerOne = !isPlayerOne;
+            System.out.format("%nИгрок, " + playerOne.getName() + ". Введите число: %n");
+            playerOne.setNumber(scanner.nextInt());
+            if(compareNums(hiddenNumber, playerOne.getNumber())) {
+                break;
             }
-            if(isPlayerOne) {
-                System.out.format("%nИгрок, " + playerOne.getName() + ". Введите число: %n");
-                playerNum = scanner.nextInt();
-                isPlayerOne = checkPlayerNum(computerNum, playerNum);
-            } else {
-                System.out.format("%nИгрок, " + playerTwo.getName() + ". Введите число: %n");
-                playerNum = scanner.nextInt();
-                isPlayerOne = !checkPlayerNum(computerNum, playerNum);
+            System.out.format("%nИгрок, " + playerTwo.getName() + ". Введите число: %n");
+            playerTwo.setNumber(scanner.nextInt());
+            if(compareNums(hiddenNumber, playerTwo.getNumber())) {
+                break;
             }
-            
-            isPlayerWin = checkPlayerWin(computerNum, playerNum, isPlayerOne);
-        } while(!isPlayerWin);
+        } while(true);
     }
 
-    private boolean checkPlayerNum(int computerNum, int playerNum) {
-        while(playerNum != computerNum) {
-            if(playerNum <=0 || playerNum > 100) {
-                System.out.println("Введите цело число в интервале от 1 до 100(включительно)");
-            } 
-            if(playerNum > computerNum) {
-                System.out.format("Число %d больше того, что загадал компьютер%n", playerNum);
-                return true;
-            } else if(playerNum < computerNum) {
-                System.out.format("Число %d меньше того, что загадал компьютер%n", playerNum);
-                return true;
-            } 
-        }
-        return false;
-    }
-
-    private boolean checkPlayerWin(int computerNum, int playerNum, boolean isPlayerOne) {
-        if(playerNum == computerNum) {
-            System.out.println("Компьютер загадал: " + computerNum);
-            if(isPlayerOne) {
+    private boolean compareNums(int hiddenNumber, int playerNum) {
+        if(playerNum == hiddenNumber) {
+            System.out.println("Компьютер загадал: " + hiddenNumber);
+            if(playerNum == playerOne.getNumber()) {
                 System.out.println("Вы победили! " + playerOne.getName());
             } else {
                 System.out.println("Вы победили! " + playerTwo.getName());
             }
             return true;
         }
+
+        if(playerNum > hiddenNumber) {
+            System.out.format("Число %d больше того, что загадал компьютер%n", playerNum);
+        } else if(playerNum < hiddenNumber) {
+            System.out.format("Число %d меньше того, что загадал компьютер%n", playerNum);
+        } 
+
         return false;
     }
 }
