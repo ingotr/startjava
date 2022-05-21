@@ -9,19 +9,24 @@ public class CalculatorTest {
         String userAnswer = "yes";
         
         do {
-            System.out.println("Введите первое число: ");
-            int a = scanner.nextInt();
-            System.out.println("Введите знак математической операции: ");
-            char sign = scanner.next().charAt(0);
-            System.out.println("Введите второе число: ");
-            int b = scanner.nextInt();
-
+            System.out.format("Введите математическое выражение в формате " +
+                    "%n(первое_число пробел знак_операции пробел второе_число): %n");
+            String str = scanner.nextLine();
+            String[] input = str.split(" ");
+            System.out.println(str);
+            for (String num :
+                    input) {
+                System.out.println(num);
+            }
+            int a = Integer.parseInt(input[0]);
+            char sign = input[1].charAt(0);
+            int b = Integer.parseInt(input[2]);
             int result = calculator.calculate(a, b, sign);
             System.out.println(a + " " + sign + " " + b + " = " + result);
             
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]: ");
-                userAnswer = scanner.next();
+                userAnswer = scanner.nextLine();
             } while(!userAnswer.equals("no") && !userAnswer.equals("yes"));
         } while(!userAnswer.equals("no"));
     }

@@ -18,17 +18,7 @@ public class Calculator {
                 result = a / b;
                 break;
             case '^':
-                result = 1;
-                int i = 0;
-
-                while(i < Math.abs(b)) {
-                    result *= a;
-                    i++;
-                }
-
-                if(b < 0) {
-                    result = 1 / result;
-                }
+                result = (int) Math.pow(a, b);
                 break;
             case '%':
                 result = a % b;
