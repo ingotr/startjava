@@ -2,31 +2,28 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    public int calculate(int a, int b, char sign) {
-        int result = 0;
+    public int calculate(String mathExpression) {
+        String[] partsExpression = mathExpression.split(" ");
+        int a = Integer.parseInt(partsExpression[0]);
+        char sign = partsExpression[1].charAt(0);
+        int b = Integer.parseInt(partsExpression[2]);
         switch(sign) {
             case '+':
-                result = a + b;
-                break;
+                return a + b;
             case '-':
-                result = a - b;
-                break;
+                return a - b;
             case '*':
-                result = a * b;
-                break;
+                return a * b;
             case '/':
-                result = a / b;
-                break;
+                return a / b;
             case '^':
-                result = (int) Math.pow(a, b);
-                break;
+                return (int) Math.pow(a, b);
             case '%':
-                result = a % b;
-                break;
+                return a % b;
             default:
                 System.out.println("Неизвестный оператор. Повторите ввод");
                 System.out.println("Доступные операторы: +, -, *, /, ^, %");
             }
-        return result;
+        return 0;
     }
 }
