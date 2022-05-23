@@ -4,16 +4,17 @@ import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
         String userAnswer = "yes";
         
         do {
             System.out.format("Введите математическое выражение в формате " +
+                    "%nФормат чисел: целые положительные" +
+                    "%nДоступные операторы: +, -, *, /, ^, %%n" +
                     "%n(первое_число пробел знак_операции пробел второе_число): %n");
             String mathExpression = scanner.nextLine();
 
-            System.out.println("результат: " + calculator.calculate(mathExpression));
+            System.out.println("результат: " + Calculator.calculate(mathExpression));
             
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]: ");
