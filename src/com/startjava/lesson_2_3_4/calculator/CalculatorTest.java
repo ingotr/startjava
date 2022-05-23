@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class CalculatorTest {
     public static final String INTRO_TEXT = """
             Введите математическое выражение в формате
-            Формат чисел: целые положительные%nДоступные операторы: +, -, *, /, ^, %
+            Формат чисел: целые положительные
+            Доступные операторы: +, -, *, /, ^, %
             (первое_число пробел знак_операции пробел второе_число):""";
     public static final String CONTINUE_TEXT = "Хотите продолжить вычисления? [yes/no]: ";
 
