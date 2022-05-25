@@ -6,7 +6,6 @@ public class GuessNumberTest {
 
     public static final String WELCOME_TEXT = "%nДобро пожаловать в игру - угадай число%n";
     public static final String INPUT_NAME = "Введите имя %s игрока: %n";
-    public static final String TRY_COUNT = "У каждого игрока - 10 попыток, чтобы угадать число";
     public static final String CONTINUE_TEXT = "%nХотите продолжить игру? [yes/no]: %n";
 
     public static void main(String[] args) {
@@ -17,9 +16,7 @@ public class GuessNumberTest {
         
         System.out.format(INPUT_NAME, "второго");
         Player playerTwo = new Player(scanner.next());
-        System.out.println(TRY_COUNT);
         GuessNumber guessGame = new GuessNumber(playerOne, playerTwo);
-
         String userAnswer = "yes";
 
         do {
