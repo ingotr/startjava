@@ -10,12 +10,15 @@ public class GuessNumber {
     public static final String GREATER_THAN_HIDDEN = "Число %d больше того, что загадал компьютер%n";
     public static final String LESS_THAN_HIDDEN = "Число %d меньше того, что загадал компьютер%n";
     public static final String COMPUTER_GUESSED = "Компьютер загадал: ";
-    public static final String ZERO_TRY_COUNT = "У %s закончились попытки";
-    public static final String LIST_NUMBER = "Все названные игроками числа";
+    public static final String ZERO_ATTEMPTS_TEXT = "У %s закончились попытки";
+    public static final String LIST_NUMBERS = "Все названные игроками числа";
     public static final String LIST_TITLE = "%nЧисла %s ";
-    private static final int MAX_TRY_NUMBER = 9;
+    public static final String NUMBER_WARNING = "Введите цело число в интервале от 1 до 100(включительно)";
+    public static final String ATTEMPTS_TEXT = "У каждого игрока - 10 попыток, чтобы угадать число";
+    private static final int MAX_ATTEMPTS_COUNT = 9;
     private Player playerOne;
     private Player playerTwo;
+
     public GuessNumber(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -25,47 +28,50 @@ public class GuessNumber {
         Random random = new Random();
         int hiddenNumber = random.nextInt(100) + 1;
 
-        resetPlayerData();
+        initGame();
         runGameplay(hiddenNumber);
     }
 
-    private void resetPlayerData() {
-        this.playerOne.resetNumber();
-        this.playerTwo.resetNumber();
-        playerOne.resetTryNumber(0);
-        playerTwo.resetTryNumber(0);
+    private void initGame() {
+        this.playerOne.resetNumbers();
+        this.playerTwo.resetNumbers();
+        playerOne.resetCountAttempts();
+        playerTwo.resetCountAttempts();
     }
 
     private void runGameplay(int hiddenNumber) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println(ATTEMPTS_TEXT);
         do {
             inputNumber(scanner, playerOne);
-            if (compareNumber(hiddenNumber, playerOne.getNumber())) {
+            if (compareNumbers(hiddenNumber, playerOne.getNumber())) {
                 System.out.printf(PLAYER_WIN,
-                        playerOne.getName(), hiddenNumber, playerOne.getTryNumber());
+                        playerOne.getName(), hiddenNumber, playerOne.getCountAttempts());
                 break;
             }
-            countTryNumber(playerOne);
+            countCountAttempts(playerOne);
 
             inputNumber(scanner, playerTwo);
-            if (compareNumber(hiddenNumber, playerTwo.getNumber())) {
+            if (compareNumbers(hiddenNumber, playerTwo.getNumber())) {
                 System.out.printf(PLAYER_WIN,
-                        playerTwo.getName(), hiddenNumber, playerTwo.getTryNumber());
+                        playerTwo.getName(), hiddenNumber, playerTwo.getCountAttempts());
                 break;
             }
-            countTryNumber(playerTwo);
+            countCountAttempts(playerTwo);
 
-        } while (playerOne.getTryNumber() < MAX_TRY_NUMBER && playerTwo.getTryNumber() < MAX_TRY_NUMBER);
+        } while (playerOne.getCountAttempts() < MAX_ATTEMPTS_COUNT && playerTwo.getCountAttempts() < MAX_ATTEMPTS_COUNT);
 
         printPlayerStatistics();
     }
 
     private void inputNumber(Scanner scanner, Player player) {
         System.out.format(PLAYER_INPUT, player.getName());
-        player.setNumber(scanner.nextInt());
+        if(!player.addNumber(scanner.nextInt())) {
+            System.out.println(NUMBER_WARNING);
+        }
     }
 
-    private boolean compareNumber(int hiddenNumber, int playerNum) {
+    private boolean compareNumbers(int hiddenNumber, int playerNum) {
         if(playerNum == hiddenNumber) {
             System.out.println(COMPUTER_GUESSED + hiddenNumber);
             return true;
@@ -73,29 +79,29 @@ public class GuessNumber {
 
         if(playerNum > hiddenNumber) {
             System.out.format(GREATER_THAN_HIDDEN, playerNum);
-        } else if(playerNum < hiddenNumber) {
+        } else {
             System.out.format(LESS_THAN_HIDDEN, playerNum);
         } 
 
         return false;
     }
 
-    private void countTryNumber(Player player) {
-        if(player.getTryNumber() == MAX_TRY_NUMBER) {
-            System.out.printf(ZERO_TRY_COUNT, player.getName());
+    private void countCountAttempts(Player player) {
+        if(player.getCountAttempts() == MAX_ATTEMPTS_COUNT) {
+            System.out.printf(ZERO_ATTEMPTS_TEXT, player.getName());
         }
     }
 
     private void printPlayerStatistics() {
-        System.out.println(LIST_NUMBER);
+        System.out.println(LIST_NUMBERS);
         System.out.printf(LIST_TITLE, playerOne.getName());
-        printPlayerNumber(playerOne);
+        printPlayerNumbers(playerOne);
         System.out.printf(LIST_TITLE, playerTwo.getName());
-        printPlayerNumber(playerTwo);
+        printPlayerNumbers(playerTwo);
     }
 
-    private void printPlayerNumber(Player player) {
-        int[] copy = player.getCopyNumber();
+    private void printPlayerNumbers(Player player) {
+        int[] copy = player.getCopyNumbers();
         for (int i : copy) {
             System.out.print(i + " ");
         }
