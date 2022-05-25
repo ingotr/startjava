@@ -4,12 +4,9 @@ import java.util.Arrays;
 
 public class Player {
 
-    public static final String NUMBER_WARNING = "Введите цело число в интервале от 1 до 100(включительно)";
-
     private String name;
-    private int[] number = new int[10];
-
-    private int tryNumber = 0;
+    private int[] numbers = new int[10];
+    private int countAttempts = 0;
 
     public Player(String name) {
         this.name = name;
@@ -20,35 +17,37 @@ public class Player {
     }
 
     public int getNumber() {
-        setTryNumber();
-        return number[this.tryNumber - 1];
+        return numbers[countAttempts - 1];
     }
 
-    public void setNumber(int number) {
-        if(number <=0 || number > 100) {
-            System.out.println(NUMBER_WARNING);
+    public boolean addNumber(int num) {
+        if(num <= 0 || num > 100) {
+            setCountAttempts();
+            return false;
         } else {
-            this.number[this.tryNumber] = number;
+            numbers[countAttempts] = num;
         }
+        setCountAttempts();
+        return true;
     }
 
-    public int getTryNumber() {
-        return this.tryNumber;
+    public int getCountAttempts() {
+        return countAttempts;
     }
 
-    public void setTryNumber() {
-        ++this.tryNumber;
+    public void setCountAttempts() {
+        countAttempts++;
     }
 
-    public void resetTryNumber(int num) {
-        this.tryNumber = num;
+    public void resetCountAttempts() {
+        countAttempts = 0;
     }
 
-    public void resetNumber() {
-        Arrays.fill(this.number, 0, this.tryNumber, 0);
+    public void resetNumbers() {
+        Arrays.fill(numbers, 0, countAttempts, 0);
     }
 
-    public int[] getCopyNumber() {
-        return Arrays.copyOf(number, this.tryNumber);
+    public int[] getCopyNumbers() {
+        return Arrays.copyOf(numbers, countAttempts);
     }
 }
