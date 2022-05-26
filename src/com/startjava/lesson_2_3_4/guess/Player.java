@@ -20,14 +20,13 @@ public class Player {
         return numbers[countAttempts - 1];
     }
 
-    public boolean addNumber(int num) {
-        if(num <= 0 || num > 100) {
-            setCountAttempts();
+    public boolean addNumber(int number) {
+        if(number <= 0 || number > 100) {
+            countAttempts++;
             return false;
-        } else {
-            numbers[countAttempts] = num;
         }
-        setCountAttempts();
+        numbers[countAttempts] = number;
+        countAttempts++;
         return true;
     }
 
@@ -35,16 +34,9 @@ public class Player {
         return countAttempts;
     }
 
-    public void setCountAttempts() {
-        countAttempts++;
-    }
-
-    public void resetCountAttempts() {
-        countAttempts = 0;
-    }
-
     public void resetNumbers() {
         Arrays.fill(numbers, 0, countAttempts, 0);
+        countAttempts = 0;
     }
 
     public int[] getCopyNumbers() {

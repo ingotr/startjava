@@ -3,18 +3,13 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumberTest {
-
-    public static final String WELCOME_TEXT = "%nДобро пожаловать в игру - угадай число%n";
-    public static final String INPUT_NAME = "Введите имя %s игрока: %n";
-    public static final String CONTINUE_TEXT = "%nХотите продолжить игру? [yes/no]: %n";
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.format(WELCOME_TEXT);
-        System.out.format(INPUT_NAME, "первого");
+        System.out.format("%nДобро пожаловать в игру - угадай число%n");
+        System.out.format("Введите имя %s игрока: %n", "первого");
         Player playerOne = new Player(scanner.next());
         
-        System.out.format(INPUT_NAME, "второго");
+        System.out.format("Введите имя %s игрока: %n", "второго");
         Player playerTwo = new Player(scanner.next());
         GuessNumber guessGame = new GuessNumber(playerOne, playerTwo);
         String userAnswer = "yes";
@@ -22,7 +17,7 @@ public class GuessNumberTest {
         do {
             guessGame.play();
             do {
-                System.out.format(CONTINUE_TEXT);
+                System.out.format("%nХотите продолжить игру? [yes/no]: %n");
                 userAnswer = scanner.next();
             } while(!userAnswer.equals("no") && !userAnswer.equals("yes"));
         } while(!userAnswer.equals("no"));
