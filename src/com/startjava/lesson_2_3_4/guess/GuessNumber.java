@@ -32,24 +32,20 @@ public class GuessNumber {
         System.out.println("У каждого игрока - 10 попыток, чтобы угадать число");
         do {
             inputNumber(scanner, playerOne);
-            if (compareNumbers(hiddenNumber, playerOne.getNumber())) {
-                System.out.printf("Игрок %s угадал число %d с %d попытки%n",
-                        playerOne.getName(), hiddenNumber, playerOne.getCountAttempts());
+            if (compareNumbers(hiddenNumber, playerOne)) {
                 break;
             }
-            countCountAttempts(playerOne);
+            checkCountAttempts(playerOne);
 
             inputNumber(scanner, playerTwo);
-            if (compareNumbers(hiddenNumber, playerTwo.getNumber())) {
-                System.out.printf("Игрок %s угадал число %d с %d попытки%n",
-                        playerTwo.getName(), hiddenNumber, playerTwo.getCountAttempts());
+            if (compareNumbers(hiddenNumber, playerTwo)) {
                 break;
             }
-            countCountAttempts(playerTwo);
+            checkCountAttempts(playerTwo);
 
-        } while (playerOne.getCountAttempts() < MAX_ATTEMPTS_COUNT && playerTwo.getCountAttempts() < MAX_ATTEMPTS_COUNT);
+        } while (playerTwo.getCountAttempts() < MAX_ATTEMPTS_COUNT);
 
-        System.out.println("Все названные игроками числа");
+        System.out.printf("%nВсе названные игроками числа");
         printPlayerNumbers(playerOne);
         printPlayerNumbers(playerTwo);
     }
@@ -57,26 +53,28 @@ public class GuessNumber {
     private void inputNumber(Scanner scanner, Player player) {
         System.out.format("%nИгрок, %s. Введите число: %n", player.getName());
         if(!player.addNumber(scanner.nextInt())) {
-            System.out.println("Введите цело число в интервале от 1 до 100(включительно)");
+            System.out.println("Ваше число не попадает в интервал от 1 до 100(включительно)");
         }
     }
 
-    private boolean compareNumbers(int hiddenNumber, int playerNum) {
-        if(playerNum == hiddenNumber) {
+    private boolean compareNumbers(int hiddenNumber, Player player) {
+        if(player.getNumber() == hiddenNumber) {
             System.out.println("Компьютер загадал: " + hiddenNumber);
+            System.out.printf("Игрок %s угадал число %d с %d попытки%n",
+                    player.getName(), hiddenNumber, player.getCountAttempts());
             return true;
         }
 
-        if(playerNum > hiddenNumber) {
-            System.out.format("Число %d больше того, что загадал компьютер%n", playerNum);
+        if(player.getNumber() > hiddenNumber) {
+            System.out.format("Число %d больше того, что загадал компьютер%n", player.getNumber());
         } else {
-            System.out.format("Число %d меньше того, что загадал компьютер%n", playerNum);
+            System.out.format("Число %d меньше того, что загадал компьютер%n", player.getNumber());
         } 
 
         return false;
     }
 
-    private void countCountAttempts(Player player) {
+    private void checkCountAttempts(Player player) {
         if(player.getCountAttempts() == MAX_ATTEMPTS_COUNT) {
             System.out.printf("У %s закончились попытки", player.getName());
         }
