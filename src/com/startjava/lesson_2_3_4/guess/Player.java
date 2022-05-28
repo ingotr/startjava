@@ -7,6 +7,7 @@ public class Player {
     private String name;
     private int[] numbers = new int[10];
     private int countAttempts = 0;
+    private int winCount = 0;
 
     public Player(String name) {
         this.name = name;
@@ -41,5 +42,17 @@ public class Player {
 
     public int[] getCopyNumbers() {
         return Arrays.copyOf(numbers, countAttempts);
+    }
+
+    public int getWinCount() {
+        return winCount;
+    }
+
+    public void setWinCount() {
+        winCount++;
+    }
+
+    public void resetWinCount() {
+        winCount = 0;
     }
 }
