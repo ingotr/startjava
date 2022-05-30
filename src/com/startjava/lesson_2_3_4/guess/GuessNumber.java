@@ -15,77 +15,63 @@ public class GuessNumber {
 
     public void play() {
         int gameCount = 0;
-        int[] playerQueue = generatePlayerQueue();
-        setupGame();
+        shufflePlayers();
+        setupGame(gameCount);
         do {
             Random random = new Random();
             int hiddenNumber = random.nextInt(100) + 1;
             System.out.format("Началась %d-я игра%n", (gameCount + 1));
-            initGame();
-            runGameplay(hiddenNumber, playerQueue);
+            setupGame(gameCount);
+            runGameplay(hiddenNumber);
             gameCount++;
         } while(gameCount < MAX_GAME_COUNT);
         showWinner();
     }
 
-    private int[] generatePlayerQueue() {
-        int[] playerQueue = new int[3];
-
-        for(int i = 0; i < playerQueue.length; i++) {
-            playerQueue[i] = i;
-        }
-
-        shuffleQueue(playerQueue, playerQueue.length);
-        return playerQueue;
-    }
-
-    private void setupGame() {
+    private void setupGame(int gameCount) {
         for (Player player: players) {
-            player.resetWinCount();
-        }
-    }
-
-    private void shuffleQueue(int[] array, int length) {
-        Random random = new Random();
-        for(int i = length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-
-            int temp  = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-    }
-
-    private void initGame() {
-        for (Player player: players) {
+            if(gameCount == MAX_GAME_COUNT) {
+                player.resetWinCount();
+            }
             player.resetNumbers();
         }
     }
 
-    private void runGameplay(int hiddenNumber, int[] playerQueue) {
+    private void shufflePlayers() {
+        Random random = new Random();
+        for(int i = players.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+
+            Player temp  = players[i];
+            players[i] = players[j];
+            players[j] = temp;
+        }
+    }
+
+    private void runGameplay(int hiddenNumber) {
         System.out.println("У каждого игрока - 10 попыток, чтобы угадать число");
         do {
-            if(runGameQueue(hiddenNumber, playerQueue)) {
+            if(isGuessed(hiddenNumber)) {
                 break;
             }
-        } while (isAttemptsLeft(players));
+        } while (isAttemptsLeft());
         printPlayerStatistics();
     }
 
-    private boolean runGameQueue(int hiddenNumber, int[] playerQueue) {
+    private boolean isGuessed(int hiddenNumber) {
         Scanner scanner = new Scanner(System.in);
-        for(int number: playerQueue) {
-            inputNumber(scanner, players[number]);
-            if (compareNumbers(hiddenNumber, players[number].getNumber())) {
-                showPlayerWin(players[number], hiddenNumber);
+        for(Player player: players) {
+            inputNumber(scanner, player);
+            if (compareNumbers(hiddenNumber, player.getNumber())) {
+                showPlayerWin(player, hiddenNumber);
                 return true;
             }
-            checkCountAttempts(players[number]);
+            checkCountAttempts(player);
         }
         return false;
     }
 
-    private boolean isAttemptsLeft(Player[] players) {
+    private boolean isAttemptsLeft() {
         return players[players.length - 1].getCountAttempts() < MAX_ATTEMPTS_COUNT;
     }
 
@@ -130,13 +116,13 @@ public class GuessNumber {
     }
 
     private void printPlayerNumbers(Player player) {
-        int[] copy = player.getCopyNumbers();
-        for (int i : copy) {
-            System.out.print(i + " ");
+        int[] numbers = player.getCopyNumbers();
+        for (int number : numbers) {
+            System.out.print(number + " ");
         }
     }
 
-    public void showWinner() {
+    private void showWinner() {
         if(checkWinner() == null) {
             System.out.printf("Ничья!");
         } else {
@@ -144,7 +130,7 @@ public class GuessNumber {
         }
     }
 
-    public Player checkWinner() {
+    private Player checkWinner() {
         int equalNumber = 0;
         for(int i = 1; i < players.length; i++) {
             if(players[0].getWinCount() == players[i].getWinCount()) {
