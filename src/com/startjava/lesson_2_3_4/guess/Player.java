@@ -6,15 +6,19 @@ public class Player {
 
     private String name;
     private int[] numbers = new int[10];
-    private int countAttempts = 0;
-    private int winCount = 0;
+    private int countAttempts;
+    private int winCount;
 
     public Player(String name) {
         this.name = name;
     }
 
     public String getName() {
-        return name;
+        try {
+            return name;
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     public int getNumber() {
@@ -22,12 +26,11 @@ public class Player {
     }
 
     public boolean addNumber(int number) {
+        countAttempts++;
         if(number <= 0 || number > 100) {
-            countAttempts++;
             return false;
         }
-        numbers[countAttempts] = number;
-        countAttempts++;
+        numbers[countAttempts - 1] = number;
         return true;
     }
 
@@ -45,7 +48,11 @@ public class Player {
     }
 
     public int getWinCount() {
-        return winCount;
+        try {
+            return winCount;
+        } catch (NullPointerException npe) {
+            return 0;
+        }
     }
 
     public void setWinCount() {
