@@ -19,14 +19,13 @@ public class GuessNumberTest {
         } while(!userAnswer.equals("no"));
     }
 
-    public static Player[] createPlayers(Scanner scanner) {
+    private static Player[] createPlayers(Scanner scanner) {
         Player[] players = new Player[3];
-        int i = 0;
-        do{
+        for (int i = 0; i < players.length; i++) {
             System.out.format("Введите имя %s игрока: %n", i + 1);
             players[i] = new Player(scanner.next());
-            i++;
-        } while(i < players.length);
+        }
+
         return players;
     }
 }
