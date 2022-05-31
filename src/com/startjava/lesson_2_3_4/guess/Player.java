@@ -14,11 +14,7 @@ public class Player {
     }
 
     public String getName() {
-        try {
-            return name;
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return name;
     }
 
     public int getNumber() {
@@ -48,11 +44,7 @@ public class Player {
     }
 
     public int getWinCount() {
-        try {
-            return winCount;
-        } catch (NullPointerException npe) {
-            return 0;
-        }
+        return winCount;
     }
 
     public void setWinCount() {
