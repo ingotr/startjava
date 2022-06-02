@@ -1,58 +1,29 @@
 package com.startjava.lesson_2_3_4.bookshelf;
 
-import java.util.Scanner;
-
 public class Shelf {
 
     private static final String INVALID_YEAR_FORMAT = "Неверный формат года. Год выпуска установлен в 2000%n%n";
-    private static final int MAX_BOOK_COUNT = 10;
+    public static final int MAX_BOOK_COUNT = 10;
     private static Book[] books  = new Book[MAX_BOOK_COUNT];
     private static int currentCount = 0;
-    private static int freeSpace = 10;
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static void start(String userChoice) {
-        switch (userChoice) {
-            case "1" -> addBook();
-            case "2" -> deleteBook();
-            case "3" -> printFoundedBook();
-            case "4" -> printTotalCount();
-            case "5" -> printFreeSpace();
-            case "6" -> System.out.println("Спасибо за работу с программой");
-            default -> System.out.println("Неизвестный пункт меню. Попробуйте выбрать еще раз");
-        }
-    }
 
     public static void showBooks() {
         System.out.println("Все книги на полке: ");
         for (Book book : books) {
-            try {
+            if(book != null) {
                 System.out.format("<%10s %10s %4d>%n", book.getAuthor(), book.getTitle(), book.getYear());
-            } catch(NullPointerException e) {
+            } else {
                 System.out.format("<%26s>%n", "");
             }
         }
     }
 
-    private static int getCurrentCount() {
+    public static int getCurrentCount() {
         return currentCount;
     }
 
-    private static int getFreeSpace() {
-        return freeSpace;
-    }
-
-    private static void addBook() {
-        if(getFreeSpace() == 0) {
-            System.out.println("На полке нет свободного места. Попробуйте удалить ненужные книги");
-            return;
-        }
-
-        String bookDescription = getInput().trim();
-        if (bookDescription.equals("")) {
-            System.out.println("Вы ввели пустую строку. Повторите ввод");
-            return;
-        }
+    public static void addBook(String bookDescription) {
+        if (bookDescription == null) return;
 
         Book newBook = createBook(bookDescription);
         if(newBook == null) {
@@ -63,19 +34,9 @@ public class Shelf {
             if(books[i] == null) {
                 books[i] = newBook;
                 currentCount++;
-                freeSpace--;
                 return;
             }
         }
-    }
-
-    private static String getInput() {
-        String INTRO_TEXT = """
-            Введите сведения о новой книге в формате
-            (автор_книги пробел название_книги пробел год):
-            """;
-        System.out.println(INTRO_TEXT);
-        return scanner.nextLine();
     }
 
     private static Book createBook(String bookDescription) {
@@ -108,17 +69,14 @@ public class Shelf {
         }
     }
 
-    private static void deleteBook() {
-        int i = getIndex();
+    public static void deleteBook(String title) {
+        int i = getIndex(title);
         if(i != -1) {
-            System.out.format("Книга %s удалена%n", books[i].getTitle());
+            System.out.format("Книга %s удалена%n", title);
             try {
                 System.arraycopy(books, i + 1, books, i, getCurrentCount() - (i + 1));
-                System.out.println("curr i: " + i);
-                System.out.println("currentCount: " + getCurrentCount());
                 books[getCurrentCount() - 1] = null;
                 currentCount--;
-                freeSpace++;
             } catch(IndexOutOfBoundsException e) {
                 System.out.println("Элемент пустой или удален");
             }
@@ -130,36 +88,25 @@ public class Shelf {
     private static void removeDuplicates() {
         for (int j = 0; j < getCurrentCount(); j++) {
             for (int k = j + 1; k < getCurrentCount() - 1; k++) {
-                try {
-                    if(books[j].equals(books[k])) {
-                        books[k] = null;
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println("Элемент пустой или удален");
+                if(books[j] == null) {
+                    continue;
+                }
+                if(books[j].equals(books[k])) {
+                    books[k] = null;
                 }
             }
         }
     }
 
-    private static void printFoundedBook() {
-        String foundedBook = """
-                Удалось найти книгу:
-                автор: %s название: %s год: %s
-                """;
-        int i = getIndex();
-        if (i != -1) {
-            System.out.format(foundedBook, books[i].getAuthor(), books[i].getTitle(), books[i].getYear());
+    public static Book getBook(String title) {
+        int i = getIndex(title);
+        if(i != -1) {
+            return books[i];
         }
+        return null;
     }
 
-    private static int getIndex() {
-        if(getCurrentCount() == 0) {
-            System.out.println("На полке нет книг. Добавьте новые книги");
-            return -1;
-        }
-
-        System.out.printf("Введите название книги для поиска: %n");
-        String title = scanner.next();
+    private static int getIndex(String title) {
         for (int i = 0; i < getCurrentCount(); i++) {
             if (books[i].getTitle().equals(title)) {
                 return i;
@@ -167,13 +114,5 @@ public class Shelf {
         }
         System.out.format("Книги с названием: %s нет на полке\n", title);
         return -1;
-    }
-
-    private static void printTotalCount() {
-        System.out.format("Всего книг на полке %d: %n", getCurrentCount());
-    }
-
-    private static void printFreeSpace() {
-        System.out.format("На полке осталось места для %d книг%n", getFreeSpace());
     }
 }
