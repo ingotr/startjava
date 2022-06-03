@@ -12,6 +12,11 @@ public class Book {
         this.year = year;
     }
 
+    @Override
+    public String toString() {
+        return String.format("<%10s %10s %4d>", author, title, year);
+    }
+
     public String getAuthor() {
         return author;
     }
