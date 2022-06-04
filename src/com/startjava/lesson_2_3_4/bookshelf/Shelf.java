@@ -13,11 +13,8 @@ public class Shelf {
     public void showBooks() {
         System.out.println("Все книги на полке: ");
         for (Book book : books) {
-            if(book != null) {
-                System.out.println(book);
-            } else {
-                System.out.format("<%26s>%n", "");
-            }
+            String bookItem  = (book != null) ? book.toString() : String.format("<%26s>%n", "");
+            System.out.println(bookItem);
         }
     }
 
