@@ -30,7 +30,7 @@ public class ShelfTest {
     private static void parseUserChoice(String userChoice) {
         switch (userChoice) {
             case "1" -> addNewBook();
-            case "2" -> deleteBookByTitle();
+            case "2" -> newShelf.deleteBook(findTitle('d'));
             case "3" -> findBookByTitle();
             case "4" -> System.out.format("Всего книг на полке %d: %n", newShelf.getCurrentCount());
             case "5" -> System.out.format("На полке осталось места для %d книг%n",
@@ -52,10 +52,6 @@ public class ShelfTest {
                 """;
         System.out.println(msgForAdd);
         newShelf.addBook(receiveUserInput());
-    }
-
-    private static void deleteBookByTitle() {
-        newShelf.deleteBook(findTitle('d'));
     }
 
     private static void findBookByTitle() {
